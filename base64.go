@@ -6,8 +6,10 @@ package xtreamcodes
 
 import (
 	"encoding/base64"
+	"encoding/json"
 	"errors"
 	"reflect"
+	"strings"
 )
 
 // Base64Value is a base64url encoded json object,
@@ -46,13 +48,28 @@ func (bv *Base64Value) UnmarshalJSON(b []byte) error {
 		return errors.New("value is not a string")
 	}
 
-	out := make([]byte, base64.RawURLEncoding.DecodedLen(len(b)-2))
-	n, err := base64.RawURLEncoding.Decode(out, b[1:len(b)-1])
+	// Unmarshal the JSON string
+	var jsonString string
+	if err := json.Unmarshal(b, &jsonString); err != nil {
+		return err
+	}
+
+	// Determine the base64 encoding type and decode accordingly
+	var decodedData []byte
+	var err error
+	if strings.ContainsAny(jsonString, "-_") {
+		// Base64 URL encoded data
+		decodedData, err = base64.RawURLEncoding.DecodeString(jsonString)
+	} else {
+		// Standard base64 encoded data
+		decodedData, err = base64.StdEncoding.DecodeString(jsonString)
+	}
+
 	if err != nil {
 		return err
 	}
 
 	v := reflect.ValueOf(bv).Elem()
-	v.SetBytes(out[:n])
+	v.SetBytes(decodedData)
 	return nil
 }
