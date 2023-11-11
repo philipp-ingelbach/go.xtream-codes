@@ -156,9 +156,9 @@ type EPGInfo struct {
 	ChannelID      string             `json:"channel_id"`
 	Description    Base64Value        `json:"description"`
 	End            string             `json:"end"`
-	EPGID          FlexInt            `json:"epg_id,string"`
+	EPGID          FlexInt            `json:"epg_id"`
 	HasArchive     ConvertibleBoolean `json:"has_archive"`
-	ID             FlexInt            `json:"id,string"`
+	ID             FlexInt            `json:"id"`
 	Lang           string             `json:"lang"`
 	NowPlaying     ConvertibleBoolean `json:"now_playing"`
 	Start          string             `json:"start"`
