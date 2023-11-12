@@ -5,13 +5,13 @@ package xtreamcodes
 
 // ServerInfo describes the state of the Xtream-Codes server.
 type ServerInfo struct {
-	HTTPSPort    FlexInt   `json:"https_port,string"`
-	Port         FlexInt   `json:"port,string"`
+	HTTPSPort    FlexInt   `json:"https_port"`
+	Port         FlexInt   `json:"port"`
 	Process      bool      `json:"process"`
-	RTMPPort     FlexInt   `json:"rtmp_port,string"`
+	RTMPPort     FlexInt   `json:"rtmp_port"`
 	Protocol     string    `json:"server_protocol"`
 	TimeNow      string    `json:"time_now"`
-	TimestampNow Timestamp `json:"timestamp_now,string"`
+	TimestampNow Timestamp `json:"timestamp_now"`
 	Timezone     string    `json:"timezone"`
 	URL          string    `json:"url"`
 }
