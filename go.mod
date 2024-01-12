@@ -1,4 +1,4 @@
-module github.com/mattetti/go.xtream-codes
+module github.com/philipp-ingelbach/go.xtream-codes
 
 go 1.17
 
