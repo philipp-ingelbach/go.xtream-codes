@@ -239,7 +239,7 @@ func (c *XtreamClient) GetSeriesInfo(seriesID string) (*Series, error) {
 
 	jsonErr := json.Unmarshal(seriesData, &seriesInfo)
 
-	return seriesInfo, jsonErr
+	return seriesInfo, nil
 }
 
 // GetVideoOnDemandInfo will return VOD info for the given vodID.
