@@ -148,13 +148,18 @@ func (c *XtreamClient) GetCategories(catType string) ([]Category, error) {
 
 	cats := make([]Category, 0)
 
+	//jsonErr := json.Unmarshal(catData, &cats)
 	jsonErr := json.Unmarshal(catData, &cats)
+	if jsonErr != nil {
+		fmt.Println("Ignoring error: ", jsonErr)
+	}
+	
 
 	for idx := range cats {
 		cats[idx].Type = catType
 	}
 
-	return cats, jsonErr
+	return cats, nil
 }
 
 // GetLiveStreams will return a slice of live streams.
@@ -190,8 +195,12 @@ func (c *XtreamClient) GetStreams(streamAction, categoryID string) ([]Stream, er
 
 	streams := make([]Stream, 0)
 
-	if jsonErr := json.Unmarshal(streamData, &streams); jsonErr != nil {
-		return nil, jsonErr
+	//if jsonErr := json.Unmarshal(streamData, &streams); jsonErr != nil {
+	//	return nil, jsonErr
+	//}
+	jsonErr := json.Unmarshal(streamData, &streams)
+	if jsonErr != nil {
+		fmt.Println("Ignoring error: ", jsonErr)
 	}
 
 	for _, stream := range streams {
@@ -217,8 +226,12 @@ func (c *XtreamClient) GetSeries(categoryID string) ([]SeriesInfo, error) {
 
 	seriesInfos := make([]SeriesInfo, 0)
 
-	if jsonErr := json.Unmarshal(seriesData, &seriesInfos); jsonErr != nil {
-		return nil, jsonErr
+	//if jsonErr := json.Unmarshal(seriesData, &seriesInfos); jsonErr != nil {
+	//	return nil, jsonErr
+	//}
+	jsonErr := json.Unmarshal(seriesData, &seriesInfos)
+	if jsonErr != nil {
+		fmt.Println("Ignoring error: ", jsonErr)
 	}
 
 	return seriesInfos, nil
@@ -236,8 +249,10 @@ func (c *XtreamClient) GetSeriesInfo(seriesID string) (*Series, error) {
 	}
 
 	seriesInfo := &Series{}
-	var _ error
-	json.Unmarshal(seriesData, &seriesInfo)
+	jsonErr := json.Unmarshal(seriesData, &seriesInfo)
+	if jsonErr != nil {
+		fmt.Println("Ignoring error: ", jsonErr)
+	}
 
 	return seriesInfo, nil
 }
@@ -256,8 +271,11 @@ func (c *XtreamClient) GetVideoOnDemandInfo(vodID string) (*VideoOnDemandInfo, e
 	vodInfo := &VideoOnDemandInfo{}
 
 	jsonErr := json.Unmarshal(vodData, &vodInfo)
+	if jsonErr != nil {
+		fmt.Println("Ignoring error: ", jsonErr)
+	}
 
-	return vodInfo, jsonErr
+	return vodInfo, nil
 }
 
 // GetShortEPG returns a short version of the EPG for the given streamID. If no limit is provided, the next 4 items in the EPG will be returned.
@@ -298,8 +316,11 @@ func (c *XtreamClient) getEPG(action, streamID string, limit int) (*epgContainer
 	epgContainer := &epgContainer{}
 
 	jsonErr := json.Unmarshal(epgData, &epgContainer)
+	if jsonErr != nil {
+		fmt.Println("Ignoring error: ", jsonErr)
+	}
 
-	return epgContainer, jsonErr
+	return epgContainer, nil
 }
 
 func (c *XtreamClient) sendRequest(action string, parameters url.Values) ([]byte, error) {
