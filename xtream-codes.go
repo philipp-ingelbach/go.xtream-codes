@@ -237,7 +237,7 @@ func (c *XtreamClient) GetSeriesInfo(seriesID string) (*Series, error) {
 
 	seriesInfo := &Series{}
 
-	jsonErr := json.Unmarshal(seriesData, &seriesInfo)
+	_ := json.Unmarshal(seriesData, &seriesInfo)
 
 	return seriesInfo, nil
 }
