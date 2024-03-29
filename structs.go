@@ -76,7 +76,7 @@ type SeriesInfo struct {
 	Director       string           `json:"director"`
 	EpisodeRunTime string           `json:"episode_run_time"`
 	Genre          string           `json:"genre"`
-	LastModified   *Timestamp       `json:"last_modified,omitempty"`
+	LastModified   string           `json:"last_modified,omitempty"`
 	Name           string           `json:"name"`
 	Num            FlexInt          `json:"num"`
 	Plot           string           `json:"plot"`
